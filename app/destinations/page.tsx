@@ -25,7 +25,7 @@ const destinations = [
     id: 3,
     name: "Courchevel",
     region: "French Alps",
-    image: "https://images.unsplash.com/photo-1531366936337-7785a0ce5652?q=80&w=2940&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1709508496457-e2f9c42493c6?q=80&w=736&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     colSpan: "md:col-span-1",
   },
   {

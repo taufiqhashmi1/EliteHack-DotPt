@@ -39,7 +39,7 @@ export default function ConciergePage() {
             className="aspect-[4/5] w-full relative overflow-hidden bg-stone-900"
           >
             <img 
-              src="https://images.unsplash.com/photo-1554046920-90dc5a360699?q=80&w=2836&auto=format&fit=crop" 
+              src="https://www.southernliving.com/thmb/tuK6JmhQQ71v6rjWQtm4YGCn8ys=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-1448294355-d35782531f054fe89ead4d8b992e79e8.jpg" 
               alt="Concierge Desk" 
               className="absolute inset-0 w-full h-full object-cover opacity-80"
             />
@@ -84,7 +84,7 @@ export default function ConciergePage() {
             className="aspect-[4/5] w-full relative overflow-hidden bg-stone-900 order-1 md:order-2"
           >
             <img 
-              src="https://images.unsplash.com/photo-1542314831-c6a4d27ce66f?q=80&w=2940&auto=format&fit=crop" 
+              src="https://www.burckhardtcompression.com/fileadmin/_processed_/e/3/csm_employee-phone-24-7-support-mm-2021_1a2cb18135.jpg" 
               alt="Luxury Travel Support" 
               className="absolute inset-0 w-full h-full object-cover opacity-80"
             />

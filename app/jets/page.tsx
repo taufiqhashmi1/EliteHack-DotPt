@@ -32,7 +32,7 @@ const jets = [
     range: "2,000 nm",
     capacity: "Up to 7 Passengers",
     description: "Agile and efficient for regional hops. Access remote runways and bypass major hubs with speed and absolute privacy.",
-    image: "https://images.unsplash.com/photo-1579626359550-6a7f80ab27b0?q=80&w=2942&auto=format&fit=crop",
+    image: "https://www.jetaviva.com/wp-content/uploads/2025/04/IADA-Controller-Image-V2-1-2048x1366.jpg",
   },
 ];
 
