@@ -1,3 +1,4 @@
+// components/forgot-password-form.tsx
 "use client";
 
 import { cn } from "@/lib/utils";
@@ -14,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useState } from "react";
+import { Turnstile } from "@marsidev/react-turnstile";
 
 export function ForgotPasswordForm({
   className,
@@ -23,17 +25,23 @@ export function ForgotPasswordForm({
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
 
   const handleForgotPassword = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!captchaToken) {
+      setError("Please complete the security check.");
+      return;
+    }
+
     const supabase = createClient();
     setIsLoading(true);
     setError(null);
 
     try {
-      // The url which will be included in the email. This URL needs to be configured in your redirect URLs in the Supabase dashboard at https://supabase.com/dashboard/project/_/auth/url-configuration
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: `${window.location.origin}/auth/update-password`,
+        captchaToken,
       });
       if (error) throw error;
       setSuccess(true);
@@ -45,53 +53,72 @@ export function ForgotPasswordForm({
   };
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
+    <div className={cn("flex flex-col gap-6 w-full max-w-md mx-auto", className)} {...props}>
       {success ? (
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-2xl">Check Your Email</CardTitle>
-            <CardDescription>Password reset instructions sent</CardDescription>
+        <Card className="bg-stone-900 border-stone-800 rounded-none shadow-[0_8px_40px_rgba(0,0,0,0.6)]">
+          <CardHeader className="space-y-4 pb-8">
+            <CardTitle className="font-serif text-3xl font-light text-stone-100 tracking-wide text-center">
+              Check Your Email
+            </CardTitle>
+            <CardDescription className="text-amber-500/80 text-center uppercase tracking-widest text-xs">
+              Instructions Dispatched
+            </CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-muted-foreground">
-              If you registered using your email and password, you will receive
-              a password reset email.
+            <p className="text-sm text-stone-400 font-light text-center leading-relaxed">
+              If registered, a secure link to reset your credentials has been sent to your inbox.
             </p>
           </CardContent>
         </Card>
       ) : (
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-2xl">Reset Your Password</CardTitle>
-            <CardDescription>
-              Type in your email and we&apos;ll send you a link to reset your
-              password
+        <Card className="bg-stone-900 border-stone-800 rounded-none shadow-[0_8px_40px_rgba(0,0,0,0.6)] transition-all duration-700 hover:border-amber-600/30">
+          <CardHeader className="space-y-4 pb-8 border-b border-stone-800/50 mb-6">
+            <CardTitle className="font-serif text-3xl font-light text-stone-100 tracking-wide text-center">
+              Recover Access
+            </CardTitle>
+            <CardDescription className="text-stone-400 text-center font-light">
+              Enter your email to receive a secure reset link.
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleForgotPassword}>
               <div className="flex flex-col gap-6">
-                <div className="grid gap-2">
-                  <Label htmlFor="email">Email</Label>
+                <div className="grid gap-3">
+                  <Label htmlFor="email" className="text-[10px] uppercase tracking-[0.2em] text-stone-500">Email Address</Label>
                   <Input
                     id="email"
                     type="email"
-                    placeholder="m@example.com"
+                    placeholder="name@example.com"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    className="bg-stone-950 border-stone-800 text-stone-100 h-12 rounded-none focus-visible:ring-1 focus-visible:ring-amber-500 focus-visible:border-amber-500 transition-all duration-300 placeholder:text-stone-700"
                   />
                 </div>
-                {error && <p className="text-sm text-red-500">{error}</p>}
-                <Button type="submit" className="w-full" disabled={isLoading}>
-                  {isLoading ? "Sending..." : "Send reset email"}
+                
+                <div className="flex justify-center my-2">
+                  <Turnstile
+                    siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                    onSuccess={(token) => setCaptchaToken(token)}
+                    options={{ theme: "dark" }}
+                  />
+                </div>
+
+                {error && <p className="text-xs text-red-400 tracking-wide text-center bg-red-950/30 py-2 border border-red-900/50">{error}</p>}
+                
+                <Button 
+                  type="submit" 
+                  className="w-full h-14 rounded-none bg-amber-600 hover:bg-amber-500 text-stone-950 font-medium tracking-[0.15em] uppercase text-xs transition-all duration-500 hover:shadow-[0_0_20px_rgba(217,119,6,0.3)] mt-2" 
+                  disabled={isLoading || !captchaToken}
+                >
+                  {isLoading ? "Dispatching..." : "Send Reset Link"}
                 </Button>
               </div>
-              <div className="mt-4 text-center text-sm">
-                Already have an account?{" "}
+              <div className="mt-8 text-center text-xs tracking-wide text-stone-500">
+                Recall your credentials?{" "}
                 <Link
                   href="/auth/login"
-                  className="underline underline-offset-4"
+                  className="text-amber-500 hover:text-amber-400 transition-colors uppercase tracking-widest border-b border-amber-500/30 hover:border-amber-400 pb-1 ml-2"
                 >
                   Login
                 </Link>
