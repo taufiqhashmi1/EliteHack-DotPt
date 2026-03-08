@@ -74,7 +74,7 @@ export default function DestinationsPage() {
             >
               {/* Background Image with Zoom on Hover */}
               <motion.div
-                className="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-[1.5s] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-110"
+                className="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-1500 ease-luxury group-hover:scale-110"
                 style={{ backgroundImage: `url(${dest.image})` }}
               />
               
@@ -94,10 +94,10 @@ export default function DestinationsPage() {
                   </motion.span>
                 </div>
                 <div className="flex justify-between items-end">
-                  <h2 className="font-serif text-3xl md:text-5xl font-light text-stone-100 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]">
+                  <h2 className="font-serif text-3xl md:text-5xl font-light text-stone-100 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-700 ease-luxury">
                     {dest.name}
                   </h2>
-                  <Link href={`/destinations/${dest.name.toLowerCase().replace(" ", "-")}`} className="w-12 h-12 rounded-full border border-stone-100/30 flex items-center justify-center text-stone-100 opacity-0 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-amber-600 hover:border-amber-600 hover:text-stone-950">
+                  <Link href={`/destinations/${dest.name.toLowerCase().replace(" ", "-")}`} className="w-12 h-12 rounded-full border border-stone-100/30 flex items-center justify-center text-stone-100 opacity-0 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0 transition-all duration-700 ease-luxury hover:bg-amber-600 hover:border-amber-600 hover:text-stone-950">
                     <ArrowRight size={20} strokeWidth={1.5} />
                   </Link>
                 </div>

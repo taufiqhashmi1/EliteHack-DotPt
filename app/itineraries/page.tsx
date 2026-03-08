@@ -91,7 +91,7 @@ export default function ItinerariesPage() {
                 className={`relative aspect-[4/3] w-full overflow-hidden bg-stone-900 border border-stone-800 ${index % 2 === 1 ? "lg:order-2" : ""}`}
               >
                 <motion.div
-                  className="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-[2.5s] hover:scale-105"
+                  className="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-2500 hover:scale-105"
                   style={{ backgroundImage: `url(${journey.image})` }}
                 />
               </div>

@@ -82,7 +82,7 @@ export default function JournalPage() {
             className="group cursor-magnetic relative w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden bg-stone-900 border border-stone-800"
           >
             <motion.div
-              className="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-[2.5s] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-105"
+              className="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-2500 ease-luxury group-hover:scale-105"
               style={{ backgroundImage: `url(${featuredArticle.image})` }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/40 to-transparent opacity-90" />
@@ -122,7 +122,7 @@ export default function JournalPage() {
             >
               <div className="relative aspect-[4/5] overflow-hidden bg-stone-900 border border-stone-800 transition-colors duration-500 group-hover:border-amber-600/30">
                 <motion.div
-                  className="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-[2s] group-hover:scale-110"
+                  className="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-2000 group-hover:scale-110"
                   style={{ backgroundImage: `url(${article.image})` }}
                 />
                 <div className="absolute inset-0 bg-stone-950/20 group-hover:bg-transparent transition-colors duration-700" />

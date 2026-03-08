@@ -74,7 +74,7 @@ export default function JetsPage() {
               {/* Image Block */}
               <div className={`lg:col-span-7 relative aspect-[16/9] w-full overflow-hidden bg-stone-900 border border-stone-800 ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
                 <motion.div
-                  className="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-[2s] hover:scale-105"
+                  className="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-2000 hover:scale-105"
                   style={{ backgroundImage: `url(${jet.image})` }}
                 />
               </div>
