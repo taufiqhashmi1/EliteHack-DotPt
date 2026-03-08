@@ -25,6 +25,7 @@ export function SignUpForm({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
@@ -32,20 +33,31 @@ export function SignUpForm({
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!acceptedTerms) {
+      setError("You must accept the terms and conditions.");
+      return;
+    }
+
     if (!captchaToken) {
       setError("Please complete the security check.");
+      return;
+    }
+
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{12,}$/;
+    if (!passwordRegex.test(password)) {
+      setError("Password must be at least 12 characters long and include an uppercase letter, a lowercase letter, a number, and a special character.");
+      return;
+    }
+
+    if (password !== repeatPassword) {
+      setError("Passwords do not match.");
       return;
     }
 
     const supabase = createClient();
     setIsLoading(true);
     setError(null);
-
-    if (password !== repeatPassword) {
-      setError("Passwords do not match");
-      setIsLoading(false);
-      return;
-    }
 
     try {
       const { error } = await supabase.auth.signUp({
@@ -114,6 +126,27 @@ export function SignUpForm({
                 />
               </div>
 
+              <div className="flex items-start gap-3 mt-2">
+                <input
+                  type="checkbox"
+                  id="terms"
+                  required
+                  checked={acceptedTerms}
+                  onChange={(e) => setAcceptedTerms(e.target.checked)}
+                  className="mt-1 h-4 w-4 rounded-none border-stone-800 bg-stone-950 text-amber-600 focus:ring-amber-500 focus:ring-offset-stone-900 cursor-magnetic transition-colors"
+                />
+                <Label htmlFor="terms" className="text-xs text-stone-400 font-light leading-relaxed cursor-pointer">
+                  I agree to the{" "}
+                  <Link href="/terms" className="text-amber-500 hover:text-amber-400 transition-colors underline-offset-4 hover:underline">
+                    Terms of Service
+                  </Link>
+                  {" "}and{" "}
+                  <Link href="/privacy" className="text-amber-500 hover:text-amber-400 transition-colors underline-offset-4 hover:underline">
+                    Privacy Policy
+                  </Link>.
+                </Label>
+              </div>
+
               <div className="flex justify-center my-2">
                 <Turnstile
                   siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
@@ -127,7 +160,7 @@ export function SignUpForm({
               <Button 
                 type="submit" 
                 className="w-full h-14 rounded-none bg-amber-600 hover:bg-amber-500 text-stone-950 font-medium tracking-[0.15em] uppercase text-xs transition-all duration-500 hover:shadow-[0_0_20px_rgba(217,119,6,0.3)] mt-2" 
-                disabled={isLoading || !captchaToken}
+                disabled={isLoading || !captchaToken || !acceptedTerms}
               >
                 {isLoading ? "Registering..." : "Submit Registration"}
               </Button>

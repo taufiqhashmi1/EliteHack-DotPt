@@ -31,6 +31,7 @@ export default function ProtectedPage() {
       <div className="max-w-7xl mx-auto flex flex-col gap-16">
         {/* Dashboard Header */}
         <header className="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-stone-800 pb-8 gap-6 transition-all duration-700 opacity-100 translate-y-0">
+          
           <div>
             <span className="text-amber-500 tracking-[0.2em] uppercase text-xs font-semibold mb-2 block">
               Private Dashboard

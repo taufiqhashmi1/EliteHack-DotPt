@@ -47,18 +47,35 @@ export async function updateSession(request: NextRequest) {
   const { data } = await supabase.auth.getClaims();
   const user = data?.claims;
 
-  if (
-    request.nextUrl.pathname !== "/" &&
-    !user &&
-    !request.nextUrl.pathname.startsWith("/login") &&
-    !request.nextUrl.pathname.startsWith("/auth")
-  ) {
-    // no user, potentially respond by redirecting the user to the login page
+  // Define all accessible public routes based on your navigation and footer
+  const publicRoutes = [
+    "/",
+    "/destinations",
+    "/itineraries",
+    "/concierge",
+    "/villas",
+    "/yachts",
+    "/jets",
+    "/about",
+    "/journal",
+    "/press",
+    "/careers",
+    "/contact",
+    "/privacy",
+    "/terms"
+  ];
+
+  // Check if the current path is in the public list or is an authentication route
+  const isPublicRoute = 
+    publicRoutes.includes(request.nextUrl.pathname) || 
+    request.nextUrl.pathname.startsWith("/auth");
+
+  // If there is no user and the route is not explicitly public, redirect to login
+  if (!user && !isPublicRoute) {
     const url = request.nextUrl.clone();
     url.pathname = "/auth/login";
     return NextResponse.redirect(url);
   }
-
   // IMPORTANT: You *must* return the supabaseResponse object as it is.
   // If you're creating a new response object with NextResponse.next() make sure to:
   // 1. Pass the request in it, like so:

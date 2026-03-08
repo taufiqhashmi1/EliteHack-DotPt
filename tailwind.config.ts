@@ -10,6 +10,15 @@ export default {
   ],
   theme: {
     extend: {
+      // Add these custom animation utilities
+      transitionDuration: {
+        '1500': '1.5s',
+        '2000': '2s',
+        '2500': '2.5s',
+      },
+      transitionTimingFunction: {
+        'luxury': 'cubic-bezier(0.25, 1, 0.5, 1)',
+      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
