@@ -74,7 +74,7 @@ export default function VillasPage() {
               {/* Image Block */}
               <div className={`lg:col-span-8 relative aspect-[16/9] w-full overflow-hidden ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
                 <motion.div
-                  className="absolute inset-0 w-full h-full bg-cover bg-center cursor-magnetic transition-transform duration-[2s] hover:scale-105"
+                  className="absolute inset-0 w-full h-full bg-cover bg-center cursor-magnetic transition-transform duration-2000 hover:scale-105"
                   style={{ backgroundImage: `url(${estate.image})` }}
                 />
               </div>

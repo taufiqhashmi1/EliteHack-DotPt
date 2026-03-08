@@ -64,7 +64,7 @@ export default function YachtsPage() {
             >
               <div className="relative aspect-[4/3] w-full overflow-hidden bg-stone-900 border border-stone-800 transition-colors duration-500 group-hover:border-amber-600/30">
                 <motion.div
-                  className="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-[2s] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-105"
+                  className="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-2000 ease-luxury group-hover:scale-105"
                   style={{ backgroundImage: `url(${yacht.image})` }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-700" />
