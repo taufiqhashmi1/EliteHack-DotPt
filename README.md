@@ -1,109 +1,64 @@
-<a href="https://demo-nextjs-with-supabase.vercel.app/">
-  <img alt="Next.js and Supabase Starter Kit - the fastest way to build apps with Next.js and Supabase" src="https://demo-nextjs-with-supabase.vercel.app/opengraph-image.png">
-  <h1 align="center">Next.js and Supabase Starter Kit</h1>
-</a>
+# Lumière: Deterministic AI Travel Architecture
 
-<p align="center">
- The fastest way to build apps with Next.js and Supabase
-</p>
+**Submission for ELITE HACK (Web Problem Statement)** | **Team:** DotPt
 
-<p align="center">
-  <a href="#features"><strong>Features</strong></a> ·
-  <a href="#demo"><strong>Demo</strong></a> ·
-  <a href="#deploy-to-vercel"><strong>Deploy to Vercel</strong></a> ·
-  <a href="#clone-and-run-locally"><strong>Clone and run locally</strong></a> ·
-  <a href="#feedback-and-issues"><strong>Feedback and issues</strong></a>
-  <a href="#more-supabase-examples"><strong>More Examples</strong></a>
-</p>
-<br/>
+## The Paradigm Shift in Travel Curation
 
-## Features
+Lumière is not a generic wrapper around a Large Language Model. It is a highly secure, deterministic travel curation engine powered by the proprietary **Gati-Agent Workflow**. By marrying PostGIS spatial database queries with the cognitive reasoning of Gemini 2.5 Flash, Lumière eradicates AI hallucination, delivering mathematically vetted, budget-constrained itineraries in real-time.
 
-- Works across the entire [Next.js](https://nextjs.org) stack
-  - App Router
-  - Pages Router
-  - Proxy
-  - Client
-  - Server
-  - It just works!
-- supabase-ssr. A package to configure Supabase Auth to use cookies
-- Password-based authentication block installed via the [Supabase UI Library](https://supabase.com/ui/docs/nextjs/password-based-auth)
-- Styling with [Tailwind CSS](https://tailwindcss.com)
-- Components with [shadcn/ui](https://ui.shadcn.com/)
-- Optional deployment with [Supabase Vercel Integration and Vercel deploy](#deploy-your-own)
-  - Environment variables automatically assigned to Vercel project
+## Architectural Supremacy
 
-## Demo
+### 1. The Anti-Hallucination "Sieve"
 
-You can view a fully working demo at [demo-nextjs-with-supabase.vercel.app](https://demo-nextjs-with-supabase.vercel.app/).
+Traditional AI travel planners fabricate non-existent hotels and impossible flight routes. Lumière employs a strict **Database-First Sieve**.
 
-## Deploy to Vercel
+* **Spatial Filtering:** Utilizes PostgreSQL + PostGIS (`ST_DWithin`, `ST_Distance`) to calculate exact geographic proximities between transit nodes, hotels, and tourist destinations.
+* **Ground Truth Injection:** The LLM is strictly constrained to reasoning over verified database records (IDs, exact prices, verified distances) injected via structured prompts. It cannot hallucinate a reality that does not exist in the database.
 
-Vercel deployment will guide you through creating a Supabase account and project.
+### 2. XAI (Explainable AI) Engine
 
-After installation of the Supabase integration, all relevant environment variables will be assigned to the project so the deployment is fully functioning.
+Every generated itinerary includes a deterministic reasoning layer. The engine explicitly justifies *why* a specific hotel or transit route was selected based on the user's micro-budget and spatial proximity to requested activities.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&project-name=nextjs-with-supabase&repository-name=nextjs-with-supabase&demo-title=nextjs-with-supabase&demo-description=This+starter+configures+Supabase+Auth+to+use+cookies%2C+making+the+user%27s+session+available+throughout+the+entire+Next.js+app+-+Client+Components%2C+Server+Components%2C+Route+Handlers%2C+Server+Actions+and+Middleware.&demo-url=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2F&external-id=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&demo-image=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2Fopengraph-image.png)
+## Enterprise-Grade Security
 
-The above will also clone the Starter kit to your GitHub, you can clone that locally and develop locally.
+Lumière operates on a zero-trust architecture, ensuring data integrity and user privacy at every layer.
 
-If you wish to just develop locally and not deploy to Vercel, [follow the steps below](#clone-and-run-locally).
+* **Row Level Security (RLS):** Cryptographically enforces at the PostgreSQL database level that authenticated users can only read, mutate, or access their specific `Trip_Bundles` and profile data.
+* **Strict Payload Validation:** Every API mutation is aggressively sanitized and type-checked using **Zod** schema validation, neutralizing injection attacks, bypassing logical flaws (e.g., negative budgets, temporal paradoxes in dates), and dropping malformed requests before they reach the execution layer.
+* **Session Auth & Bot Mitigation:** Leverages Supabase Authentication with hardened session management, fortified against automated bot attacks and API quota abuse via integrated CAPTCHA verification at critical entry points.
+* **Secret Isolation:** All LLM API keys and privileged database service roles are strictly isolated within Next.js Server Components and Edge environments. There is zero credential exposure to the client bundle.
 
-## Clone and run locally
+## Technical Matrix
 
-1. You'll first need a Supabase project which can be made [via the Supabase dashboard](https://database.new)
+* **Client & Server Framework:** Next.js (App Router, Server Actions)
+* **Database & Auth:** Supabase, PostgreSQL, PostGIS (Geospatial routing)
+* **Generative Reasoning:** Google Gemini 2.5 Flash (Forced JSON-schema generation)
+* **Data Validation:** Zod
+* **Styling & UI:** Tailwind CSS, Custom Glassmorphism, Lucide React
 
-2. Create a Next.js app using the Supabase Starter template npx command
+## Execution Protocol (Local Setup)
 
-   ```bash
-   npx create-next-app --example with-supabase with-supabase-app
-   ```
+1. Initialize the repository:
+```bash
+git clone <repository_url>
+cd <repository_directory>
+npm install
 
-   ```bash
-   yarn create next-app --example with-supabase with-supabase-app
-   ```
+```
 
-   ```bash
-   pnpm create next-app --example with-supabase with-supabase-app
-   ```
 
-3. Use `cd` to change into the app's directory
+2. Configure environment variables in `.env.local`:
+```env
+NEXT_PUBLIC_SUPABASE_URL="your_supabase_url"
+NEXT_PUBLIC_SUPABASE_ANON_KEY="your_supabase_anon_key"
+GEMINI_API_KEY="your_gemini_2.5_api_key"
 
-   ```bash
-   cd with-supabase-app
-   ```
+```
 
-4. Rename `.env.example` to `.env.local` and update the following:
 
-  ```env
-  NEXT_PUBLIC_SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
-  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=[INSERT SUPABASE PROJECT API PUBLISHABLE OR ANON KEY]
-  ```
-  > [!NOTE]
-  > This example uses `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, which refers to Supabase's new **publishable** key format.
-  > Both legacy **anon** keys and new **publishable** keys can be used with this variable name during the transition period. Supabase's dashboard may show `NEXT_PUBLIC_SUPABASE_ANON_KEY`; its value can be used in this example.
-  > See the [full announcement](https://github.com/orgs/supabase/discussions/29260) for more information.
+3. Execute the PostGIS extension and DDL initialization scripts in the Supabase SQL editor to establish the database schema and RLS policies.
+4. Launch the application:
+```bash
+npm run dev
 
-  Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` can be found in [your Supabase project's API settings](https://supabase.com/dashboard/project/_?showConnect=true)
-
-5. You can now run the Next.js local development server:
-
-   ```bash
-   npm run dev
-   ```
-
-   The starter kit should now be running on [localhost:3000](http://localhost:3000/).
-
-6. This template comes with the default shadcn/ui style initialized. If you instead want other ui.shadcn styles, delete `components.json` and [re-install shadcn/ui](https://ui.shadcn.com/docs/installation/next)
-
-> Check out [the docs for Local Development](https://supabase.com/docs/guides/getting-started/local-development) to also run Supabase locally.
-
-## Feedback and issues
-
-Please file feedback and issues over on the [Supabase GitHub org](https://github.com/supabase/supabase/issues/new/choose).
-
-## More Supabase examples
-
-- [Next.js Subscription Payments Starter](https://github.com/vercel/nextjs-subscription-payments)
-- [Cookie-based Auth and the Next.js 13 App Router (free course)](https://youtube.com/playlist?list=PL5S4mPUpp4OtMhpnp93EFSo42iQ40XjbF)
-- [Supabase Auth and the Next.js App Router](https://github.com/supabase/supabase/tree/master/examples/auth/nextjs)
+```
