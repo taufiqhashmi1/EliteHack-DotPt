@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter, Cormorant_Garamond } from "next/font/google";
 import Link from "next/link";
 import { MagneticCursor } from "@/components/magnetic-cursor";
+import { PublicNavbar } from "@/components/public-navbar";
+import { AuthButton } from "@/components/auth-button";
 import "./globals.css";
 
 const defaultUrl = process.env.VERCEL_URL
@@ -87,7 +89,9 @@ export default function RootLayout({
       <body className="font-sans bg-stone-950 text-stone-50 antialiased selection:bg-amber-700 selection:text-white min-h-screen flex flex-col">
         
         <MagneticCursor />
-        
+        <PublicNavbar>
+          <AuthButton />
+        </PublicNavbar>
         {/* Main Content Area */}
         <main className="flex-1 w-full flex flex-col">
           {children}

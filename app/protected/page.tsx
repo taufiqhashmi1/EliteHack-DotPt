@@ -110,7 +110,7 @@ export default function ProtectedPage() {
                 Need assistance curating your next exclusive experience? Our advisors are available 24/7.
               </p>
               <a
-                href="mailto:concierge@lumiere.com"
+                href="/contact"
                 className="cursor-magnetic self-start inline-block text-amber-500 text-xs uppercase tracking-[0.2em] hover:text-amber-400 transition-colors border-b border-amber-500/30 hover:border-amber-400 pb-1"
               >
                 Contact Advisor
